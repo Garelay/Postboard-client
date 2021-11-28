@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FileBase from "react-file-base64"
 
-import styles from "./styles.module.css"
+import styles from "./Form.module.css"
 import { createPost, updatePost } from '../../actions/posts'
 
-export default function Form({currentId, setCurrentId}) {
+export default function Form({currentId, setCurrentId, toggleForm}) {
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
     const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
     const dispatch = useDispatch();
@@ -29,6 +29,7 @@ export default function Form({currentId, setCurrentId}) {
             <h2 className={styles.header}>
             {currentId ? `Editing "${post.title}"` : 'Creating a Post'}
             </h2>
+            <button className={styles.button, styles.close_btn} onClick={toggleForm}>X</button>
             <div className={styles.container}>
                 <label htmlFor="title" className="lable">Title:</label>
                 <input type="text" id="title"className={styles.text_input} value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
