@@ -1,35 +1,33 @@
-import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {getPosts} from "./actions/posts"
+import { closeForm } from "./actions/form";
 import Form from "./components/Form/Form";
 import Posts from "./components/Posts/Posts";
 import styles from "./App.module.css"
 
 function App() {
-  const [currentId, setCurrentId] = useState(0)
   const dispatch = useDispatch()
-  const [showForm, setShowForm] = useState(false)
-  const toggleForm = () => {
-    setShowForm(prev => !prev)
-  }
+  const showFormState = useSelector((state)=>state.form)
+  
   const formRef = useRef()
   
   useEffect(() => {
     dispatch(getPosts())
-  }, [currentId, dispatch])
+  }, [ dispatch])
 
-  const closeForm = e =>{
+  const handleCloseForm = e =>{
     if (formRef.current === e.target) {
-      setShowForm(false)
+      dispatch(closeForm())
     }
   }
 
   return (
     <div className="App">
       <div className={styles.container}>
-        <Posts setCurrentId={setCurrentId} toggleForm={toggleForm} showForm={showForm}/>
-        {showForm?(<div className={styles.form_background} ref={formRef} onClick={closeForm}><Form setCurrentId={setCurrentId} toggleForm={toggleForm}/></div>):null}
+        <Posts />
+        {showFormState?(<div className={styles.form_background} ref={formRef} onClick={handleCloseForm}><Form /></div>):null}
       </div> 
     </div>
     

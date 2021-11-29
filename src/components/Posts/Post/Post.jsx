@@ -1,11 +1,22 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { likePost,deletePost } from '../../../actions/posts'
+import { setCurrentId } from '../../../actions/currentId'
+import { toggleForm } from '../../../actions/form'
 import styles from "./styles.module.css"
 
-export default function Post({post, setCurrentId}) {
+export default function Post({post}) {
+    const dispatch = useDispatch()
+    const posts = useSelector(state=> state.posts)
+    const handleEditClick = () => {
+        dispatch(setCurrentId(post._id))
+        dispatch(toggleForm())
+    }
+
     return (
         <div className={styles.container}>
-            <button className={styles.button, styles.edit_btn}>Edit</button>
+            <button className={styles.button, styles.edit_btn} onClick={handleEditClick}>Edit</button>
             <div>
                 <img src={post.selectedFile|| 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
             </div>
@@ -18,9 +29,15 @@ export default function Post({post, setCurrentId}) {
             <div>
                 Creator: {post.creator}
             </div>
-            <button className={styles.button, styles.delete_btn}>Delete</button>
-
-            <button className={styles.button, styles.like_btn}>Like</button>
+            <div>
+                tags: {post.tags.map((tag) => `#${tag}`)}
+            </div>
+            <button className={styles.button, styles.delete_btn} onClick={()=>{dispatch(deletePost(post._id))
+            console.log(posts.length)}}>Delete</button>
+            <button className={styles.button, styles.like_btn} onClick={() => dispatch(likePost(post._id))}>Like</button>
+            <div>
+                People liked it:{post.likeCount}
+            </div>
         </div>
     )
 }
