@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FileBase from "react-file-base64"
 
 import styles from "./Form.module.css"
-import { createPost} from '../../actions/posts'
+import { createPost, updatePost} from '../../actions/posts'
 import { closeForm } from '../../actions/form'
 import {setCurrentId} from '../../actions/currentId'
 
@@ -24,8 +24,13 @@ export default function Form() {
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        dispatch(createPost(postData))
+        if (!currentId) {
+            dispatch(createPost(postData))
+        }else{
+                dispatch(updatePost(currentId,postData))
+            }    
         clear()
+        dispatch(closeForm())
     }
     return (
         <form className={styles.form} autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -39,7 +44,7 @@ export default function Form() {
                 <label htmlFor="message"className="lable">Message:</label>
                 <input type="text" id="message" className={styles.text_input} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })}/>
                 <label htmlFor="tags"className="lable">Tags (coma separated):</label>
-                <input type="text" id="tags"className={styles.text_input} value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value })}/>
+                <input type="text" id="tags"className={styles.text_input} value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(",") })}/>
                 <label htmlFor="creator" className="lable">Creator:</label>
                 <input type="text" id="creator"className={styles.text_input} value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })}/>
             </div>
