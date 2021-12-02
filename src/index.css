@@ -1,15 +1,20 @@
 html {
+	font-family: 'Open Sans', sans-serif;
 	font-size: 100%;
 	box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+*,*::before,*::after {
 	box-sizing: inherit;
 }
 
 body {
+	background: linear-gradient(135deg, #c4dd17, #00c2ff);
 	margin: 0;
 	padding: 0;
+	min-height: 100vh;
 }
+/* .App{
+	background: linear-gradient(135deg, #c4dd17, #00c2ff);
+	height: 100%;
+} */

@@ -1,12 +1,14 @@
 .container{
     display: flex;
-    color: blue
 }
+
+
 .form_background{
     position: absolute;
-    min-height: 100%;
-    min-width: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
+    top: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;

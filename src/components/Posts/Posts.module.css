@@ -1,6 +1,5 @@
 .container{
     max-width: 100%;
-    color: green;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

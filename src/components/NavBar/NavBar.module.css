@@ -4,14 +4,21 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 2rem;
-    background-color: cyan;
+    background: rgba(91,245,224, 0.7)
 }
 .container{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .logo{
     max-height: 2.5rem;
+}
+.button{
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+.button + .button {
+    margin-left: 1rem;
 }
