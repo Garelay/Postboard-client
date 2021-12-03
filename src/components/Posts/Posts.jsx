@@ -6,6 +6,7 @@ import Post from "./Post/Post"
 import NewPostCard from './NewPostCard/NewPostCard'
 
 export default function Posts({setCurrentId}) {
+    const modal = useSelector(state => state.modal)
     const posts = useSelector((state)=> state.posts)
     const showFormState = useSelector((state)=>state.form)
     return (
@@ -13,6 +14,6 @@ export default function Posts({setCurrentId}) {
          {!posts.length? <div>No post found</div> :   
             (posts.map((post)=> <Post post = {post} setCurrentId={setCurrentId} key={post._id}/>))       
             } 
-        {!showFormState?<NewPostCard/>:null}
+        {(modal!=="postForm")?<NewPostCard/>:null}
     </div>
     )}

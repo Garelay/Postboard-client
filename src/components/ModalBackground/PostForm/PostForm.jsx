@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FileBase from "react-file-base64"
 
-import styles from "./Form.module.css"
-import { createPost, updatePost} from '../../actions/posts'
-import { closeForm } from '../../actions/form'
-import {setCurrentId} from '../../actions/currentId'
+import styles from "./PostForm.module.css"
+import { createPost, updatePost} from '../../../actions/posts'
+import {setCurrentId} from '../../../actions/currentId'
+import { closeModal } from '../../../actions/modal'
 
 export default function Form() {
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
@@ -30,14 +30,14 @@ export default function Form() {
                 dispatch(updatePost(currentId,postData))
             }    
         clear()
-        dispatch(closeForm())
+        dispatch(closeModal())
     }
     return (
         <form className={styles.form} autoComplete="off" noValidate onSubmit={handleSubmit}>
             <h2 className={styles.header}>
             {currentId ? `Editing "${post.title}"` : 'Creating a Post'}
             </h2>
-            <button className={styles.button, styles.close_btn} onClick={()=>dispatch(closeForm())}>X</button>
+            <button className={styles.button, styles.close_btn} type="button" onClick={()=>dispatch(closeModal())}>X</button>
             <div className={styles.container}>
                 <label htmlFor="title" className="lable">Title:</label>
                 <input type="text" id="title"className={styles.text_input} value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
@@ -50,7 +50,7 @@ export default function Form() {
             </div>
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
             <button className={styles.button, styles.submit_btn} type="submit">Submit</button>
-            <button className={styles.button, styles.clear_btn} onClick={clear}>Clear</button>
+            <button type="button" className={styles.button, styles.clear_btn} onClick={clear}>Clear</button>
         </form>
     )
 }

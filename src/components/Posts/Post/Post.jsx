@@ -6,15 +6,15 @@ import {TiDeleteOutline} from "react-icons/ti";
 import {BiLike} from "react-icons/bi"
 import { likePost,deletePost } from '../../../actions/posts'
 import { setCurrentId } from '../../../actions/currentId'
-import { toggleForm } from '../../../actions/form'
 import styles from "./Post.module.css"
+import { showPostForm } from '../../../actions/modal';
 
 export default function Post({post}) {
     const dispatch = useDispatch()
     const posts = useSelector(state=> state.posts)
     const handleEditClick = () => {
         dispatch(setCurrentId(post._id))
-        dispatch(toggleForm())
+        dispatch(showPostForm())
     }
     const iconStyle = {
         verticalAlign: "middle",
