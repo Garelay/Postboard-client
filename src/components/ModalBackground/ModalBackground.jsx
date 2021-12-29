@@ -5,8 +5,9 @@ import styles from "./ModalBackground.module.css"
 import ModalError from './ModalError/ModalError';
 import { closeModal } from '../../actions/modal';
 import LoginForm from './LogInForm/LoginForm';
-import SignInForm from './SignInForm/SignInForm';
+import SignUpForm from './SignUpForm/SignUpForm';
 import { setCurrentId } from '../../actions/currentId';
+import UserForm from './UserForm/UserForm';
 
 export default function ModalBackground() {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ export default function ModalBackground() {
         }
         window.addEventListener('keydown', close)
       return () => window.removeEventListener('keydown', close)
-    },[])
+    },[dispatch])
     function ModalWindow(){
         switch (modal) {
             case "postForm":
@@ -34,7 +35,9 @@ export default function ModalBackground() {
             case "logInForm":
                 return <LoginForm/>
             case "signInForm":
-                return <SignInForm/>        
+                return <SignUpForm/>
+            case "userForm":
+                return <UserForm/>            
             default:
                 return <ModalError/>;
         }
